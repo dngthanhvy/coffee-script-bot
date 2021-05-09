@@ -38,8 +38,17 @@ const leagueHandler = async (msg, ...params) => {
     }
 };
 
+const gifHandler = async (msg, ...params) => {
+
+    if (![...params])
+        await msg.channel.send(await Tenor.randomGifSearch());
+    else
+        await msg.channel.send(await Tenor.gifSearch(...params));
+}
+
 const commandList = [
     ['hello', sayHello],
+    ['gif', gifHandler],
     ['league', leagueHandler],
 ];
 
