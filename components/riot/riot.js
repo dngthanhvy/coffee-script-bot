@@ -2,6 +2,8 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
 
+//TODO: Error handling
+
 const RIOT_TOKEN = process.env.RIOT_TOKEN;
 
 const optionsHeader = {
@@ -9,12 +11,6 @@ const optionsHeader = {
         'X-Riot-Token': RIOT_TOKEN
     }
 };
-
-const regions = [
-    'EUW1',
-    'NA1',
-    'KR'
-];
 
 export const getSummonerDetails = async (region, summonerName) => {
     const summonersByNameURL = `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}`;
@@ -62,16 +58,17 @@ export const getSummonerActiveGame = async(region, summonerName) => {
 
 
 export const formatSummonerRankedDetails = (details) => {
-    let queueType = ""
+    //TODO: empty classes
+    let queueType = "";
     let res = `**Ranked details for ${details[0].summonerName}**\n`
     let rank = "";
-    let wl = ""
+    let wl = "";
     details.forEach(elem => {
         if (elem.queueType === 'RANKED_FLEX_SR') {
             queueType = "Ranked Flex";
         } else if (elem.queueType === 'RANKED_SOLO_5x5') {
             queueType = "Ranked Solo/Duo";
-        }
+        } 
         rank = `${elem.tier} ${elem.rank} ${elem.leaguePoints} LP`;
         wl =  `${elem.wins} W / ${elem.losses} L`;
         res += `${queueType}: ${rank} (${wl})\n`;

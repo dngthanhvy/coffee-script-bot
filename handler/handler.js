@@ -24,7 +24,6 @@ const leagueHandler = async (msg, ...params) => {
         } else {
             await msg.channel.send('Could not find the summoner details.')
         }
-        //TODO: format it because the number of characters > 2000
     } else if (leagueInfo === "currentgame") {
         const currentGameRes = await Riot.getSummonerActiveGame(region, summonerName);
         if (currentGameRes) {
@@ -44,12 +43,17 @@ const gifHandler = async (msg, ...params) => {
         await msg.channel.send(await Tenor.randomGifSearch());
     else
         await msg.channel.send(await Tenor.gifSearch(...params));
-}
+};
+
+const lpCalculator = async() => {
+
+};
 
 const commandList = [
     ['hello', sayHello],
     ['gif', gifHandler],
     ['league', leagueHandler],
+    ['lp', lpCalculator]
 ];
 
 const commandHandler = async (msg) => {
