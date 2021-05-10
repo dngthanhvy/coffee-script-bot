@@ -22,7 +22,7 @@ const onEvent = (client) => {
 }
 
 
-export {
+export default {
     coffeeScript,
     connect,
     onEvent

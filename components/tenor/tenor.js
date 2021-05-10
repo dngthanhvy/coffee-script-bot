@@ -40,7 +40,7 @@ const gifSearch = async(searchTerm) => {
     }
 };
 
-export {
+export default {
     randomGifSearch,
     gifSearch
 }

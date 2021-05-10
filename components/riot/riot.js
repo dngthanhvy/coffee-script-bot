@@ -12,7 +12,7 @@ const optionsHeader = {
     }
 };
 
-export const getSummonerDetails = async (region, summonerName) => {
+const getSummonerDetails = async (region, summonerName) => {
     const summonersByNameURL = `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}`;
     try {
         const summonerData = await axios.get(summonersByNameURL, optionsHeader);
@@ -23,7 +23,7 @@ export const getSummonerDetails = async (region, summonerName) => {
     }
 }
 
-export const getSummonerRankedDetails = async(region, summonerName) => {
+const getSummonerRankedDetails = async(region, summonerName) => {
     if (region === 'euw' || region === 'na')
         region += '1';
     try {
@@ -39,7 +39,7 @@ export const getSummonerRankedDetails = async(region, summonerName) => {
 
 }
 
-export const getSummonerActiveGame = async(region, summonerName) => {
+const getSummonerActiveGame = async(region, summonerName) => {
     if (region === 'euw' || region === 'na')
         region += '1';
     try {
@@ -57,7 +57,7 @@ export const getSummonerActiveGame = async(region, summonerName) => {
 };
 
 
-export const formatSummonerRankedDetails = (details) => {
+const formatSummonerRankedDetails = (details) => {
     //TODO: empty classes
     let queueType = "";
     let res = `**Ranked details for ${details[0].summonerName}**\n`
@@ -77,6 +77,13 @@ export const formatSummonerRankedDetails = (details) => {
 };
 
 
-export const summonerRankedDetails = async(region, summonerName) => {
+const summonerRankedDetails = async(region, summonerName) => {
     return formatSummonerRankedDetails(await getSummonerRankedDetails(region, summonerName))
 };
+
+export default {
+    getSummonerDetails,
+    getSummonerRankedDetails,
+    formatSummonerRankedDetails,
+    summonerRankedDetails
+}
