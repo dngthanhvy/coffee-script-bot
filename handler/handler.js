@@ -1,12 +1,5 @@
-import {Riot, Tenor} from '../components/components.js';
-
-const formatJSON = (JSONres) => {
-    return JSON.stringify(JSONres, null, 2);
-};
-
-const markdownJSON = (string) => {
-    return " ```json\n"+string+"\n```";
-};
+import {Riot, Tenor, Cat} from '../components/components.js';
+import { formatJSON, markdownJSON } from './utils.js';
 
 const sayHello = async (msg, params) => {
     await msg.channel.send('Hello!');
@@ -38,22 +31,27 @@ const leagueHandler = async (msg, ...params) => {
 };
 
 const gifHandler = async (msg, ...params) => {
-
     if (![...params])
         await msg.channel.send(await Tenor.randomGifSearch());
     else
         await msg.channel.send(await Tenor.gifSearch(...params));
 };
 
-const lpCalculator = async() => {
 
+const catHandler = async (msg, ...params) => {
+    const cat = params[0].toLowerCase();
+    if (cat === 'fact') {
+        await msg.channel.send(await Cat.getCatFact());
+    } else if (cat === 'pic') {
+        await msg.channel.send(await Cat.getRandomCatPic());
+    }
 };
 
 const commandList = [
     ['hello', sayHello],
     ['gif', gifHandler],
     ['league', leagueHandler],
-    ['lp', lpCalculator]
+    ['cat', catHandler]
 ];
 
 const commandHandler = async (msg) => {

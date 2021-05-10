@@ -2,18 +2,7 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
 
-
-const formatResultToArray = (result) => {
-    let urlRes = [];
-    result.forEach(elem => {
-        urlRes.push(elem.media[0].gif.url);
-    });
-    return urlRes;
-};
-
-const getRandomIndex = (array) => {
-    return array[Math.floor(Math.random() * array.length)];
-}
+import { formatResultToArray, getRandomIndex } from './utils.js'
 
 const randomGifSearch = async(searchTerm) => {
     const api_key = process.env.TENOR_KEY;
