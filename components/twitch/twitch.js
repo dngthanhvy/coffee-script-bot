@@ -11,7 +11,6 @@ const config = {
 };
 
 
-// TODO: Fetch user information from the username
 const getUserInformation = async(userLogin) => {
     try {
         const fetchedUserInfos = await axios.get(`https://api.twitch.tv/helix/users?login=${userLogin}`, config)
@@ -22,7 +21,6 @@ const getUserInformation = async(userLogin) => {
     }
 };
 
-// TODO: Fetch channel information from the user's id 
 const getChannelInformation = async(userId) => {
     try {
         const channelInfos = await axios.get(`https://api.twitch.tv/helix/channels?broadcaster_id=${userId}`, config);
@@ -33,8 +31,6 @@ const getChannelInformation = async(userId) => {
     }
 };
 
-// TODO: Format the result to show an embed of the channel information
-// Author: Streamer name, Description: the channel's description, Live: Yes or No
 const getStreamInformation = async(userLogin) => {
     try {
         const streamInfos = await axios.get(`https://api.twitch.tv/helix/streams?user_login=${userLogin}`, config);
@@ -51,9 +47,10 @@ const embedStreamInformation = async(userLogin) => {
         getStreamInformation(userLogin)
     ])
     const [userInfos, streamInfos] = allInfos;
-    if (streamInfos) {
-        return embedTwitchLive(streamInfos, userInfos)
-    } else return embedTwitchOff(userInfos);
+    
+    if (!userInfos) return 'Streamer not found on Twitch. Did you type in the correct username?'
+    else if (!streamInfos) return embedTwitchOff(userInfos);
+    else return embedTwitchLive(streamInfos, userInfos);
 }
 
 
