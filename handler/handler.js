@@ -1,4 +1,4 @@
-import {Riot, Tenor, Cat} from '../components/components.js';
+import {Riot, Tenor, Cat, Twitch} from '../components/components.js';
 import { formatJSON, markdownJSON } from './utils.js';
 
 const sayHello = async (msg, params) => {
@@ -7,8 +7,10 @@ const sayHello = async (msg, params) => {
 
 const leagueHandler = async (msg, ...params) => {
     const leagueInfo = params[0].toLowerCase();
-    const region = params[1].toLowerCase();
-    const summonerName = encodeURI(params.slice(2).join(" "));
+    if (params.length > 1) {
+        const region = params[1].toLowerCase();
+        const summonerName = encodeURI(params.slice(2).join(" "));
+    }
 
     if (leagueInfo === "summoner") {
         const rankedRes = await Riot.summonerRankedDetails(region, summonerName);
@@ -27,6 +29,8 @@ const leagueHandler = async (msg, ...params) => {
         }
     } else if (leagueInfo === "matchhistory") {
         //TODO: get match history + get details on each of them + format them
+    } else if (leagueInfo === "embed") {
+        await msg.channel.send(Riot.embedSummonerRankedDetails())
     }
 };
 
@@ -47,11 +51,17 @@ const catHandler = async (msg, ...params) => {
     }
 };
 
+const twitchHandler = async (msg, ...params) => {
+    const twitchUser = params[0].toLowerCase();
+    await msg.channel.send(await Twitch.embedStreamInformation(twitchUser))
+}
+
 const commandList = [
     ['hello', sayHello],
     ['gif', gifHandler],
     ['league', leagueHandler],
-    ['cat', catHandler]
+    ['cat', catHandler],
+    ['twitch', twitchHandler]
 ];
 
 const commandHandler = async (msg) => {

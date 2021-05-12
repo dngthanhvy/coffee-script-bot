@@ -2,6 +2,8 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
 
+import { formatSummonerRankedDetails, embedSummonerRankedDetails } from './utils.js'
+
 //TODO: Error handling
 
 const RIOT_TOKEN = process.env.RIOT_TOKEN;
@@ -26,8 +28,10 @@ const getSummonerDetails = async (region, summonerName) => {
 const getSummonerRankedDetails = async(region, summonerName) => {
     if (region === 'euw' || region === 'na')
         region += '1';
+    
+    const summonerDetails = await getSummonerDetails(region, summonerName);
+    
     try {
-        const summonerDetails = await getSummonerDetails(region, summonerName);
         const summonerId = summonerDetails.id;
         const summonerRankedDetailsURL = `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}`
         const summonerRankedDetails = await axios.get(summonerRankedDetailsURL, optionsHeader);
@@ -56,27 +60,6 @@ const getSummonerActiveGame = async(region, summonerName) => {
     }
 };
 
-
-const formatSummonerRankedDetails = (details) => {
-    //TODO: empty classes
-    let queueType = "";
-    let res = `**Ranked details for ${details[0].summonerName}**\n`
-    let rank = "";
-    let wl = "";
-    details.forEach(elem => {
-        if (elem.queueType === 'RANKED_FLEX_SR') {
-            queueType = "Ranked Flex";
-        } else if (elem.queueType === 'RANKED_SOLO_5x5') {
-            queueType = "Ranked Solo/Duo";
-        } 
-        rank = `${elem.tier} ${elem.rank} ${elem.leaguePoints} LP`;
-        wl =  `${elem.wins} W / ${elem.losses} L`;
-        res += `${queueType}: ${rank} (${wl})\n`;
-    })
-    return res;
-};
-
-
 const summonerRankedDetails = async(region, summonerName) => {
     return formatSummonerRankedDetails(await getSummonerRankedDetails(region, summonerName))
 };
@@ -85,5 +68,6 @@ export default {
     getSummonerDetails,
     getSummonerRankedDetails,
     formatSummonerRankedDetails,
-    summonerRankedDetails
+    summonerRankedDetails,
+    embedSummonerRankedDetails
 }
