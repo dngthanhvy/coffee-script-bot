@@ -9,7 +9,7 @@ const connect = (client) => {
     client.login(process.env.DISCORD_TOKEN).catch(e => console.log(e.message));
     client.on('ready', () => {
         console.log(`Logged in as ${client.user.tag}`);
-      });
+    });
 };
 
 const onEvent = (client) => {

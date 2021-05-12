@@ -19,28 +19,30 @@ const formatSummonerRankedDetails = (details) => {
     return res;
 };
 
-const embedSummonerRankedDetails = (details) => {
+const embedSummonerRankedDetails = (summonerObject) => {
 
-    
-    const exampleEmbed = new Discord.MessageEmbed()
-	.setColor('#0099ff')
-	.setTitle(`Summoner Name`)
-	.setURL('https://discord.js.org/')
-	.setDescription('Tier')
-	.setThumbnail('https://i.imgur.com/wSTFkRM.png')
-	.addFields(
-		{ name: 'Flex 5v5', value: 'Some value here', inline: true },
-		{ name: 'Wins/Losses', value: 'Some value here', inline: true },
+    const user = summonerObject;
+
+    const thumbnailURL = `http://ddragon.leagueoflegends.com/cdn/11.10.1/img/profileicon/${user.profileIcon}.png`;
+
+    const opGGURL = `https://${user.region.toLowerCase()}.op.gg/summoner/userName=${user.name}`
+
+    const embed = new Discord.MessageEmbed()
+    .setTitle(user.name)
+    .setThumbnail(thumbnailURL)
+    .setURL(opGGURL)
+    .setDescription(`${user.region} - Level ${user.level}`)
+    .addFields(
+        {name: 'Solo/Duo', value: user.soloq.tier_rank, inline: true},
+        {name: 'Win/Losses', value: user.soloq.wl, inline: true},
         { name: '\u200B', value: '\u200B' },
 
-	)
+    )
     .addFields(
-		{ name: 'Solo/Duo 5v5', value: 'Some value here', inline: true },
-		{ name: 'Wins/Losses', value: 'Some value here', inline: true },
-	)
-	.setImage('https://i.imgur.com/wSTFkRM.png');
-
-    return exampleEmbed;
+        {name: 'Flex 5v5', value: user.flexq.tier_rank, inline: true},
+        {name: 'Win/Losses', value: user.flexq.wl, inline: true}
+    )
+    return embed;
 }
 
 export {

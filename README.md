@@ -24,19 +24,7 @@ The ranked stats for a summoner can be requested.
 
 Command: `!league summoner <region> <summoner name>`
 
-The bot will then send a message with the SOLO Q and FLEX Q ranked tiers, the LP along with the number of wins and losses.
-
-### Active game lookup
-
-The user can request the active game of a player.
-
-Command: `!league active <region> <summoner name>`
-
-### Last 10 matches history
-
-The user can request the last 10 matches of a player.
-
-Command: `!league log <region> <summoner name>`
+The bot will then send an embed message with the SOLO Q and FLEX Q ranked tiers with the number of wins and losses.
 
 ## Cat facts and pictures
 

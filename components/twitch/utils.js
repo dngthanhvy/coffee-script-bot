@@ -6,6 +6,7 @@ const embedTwitchLive = (streamInfo, userInfos) => {
     const stream = streamInfo;
     const streamThumbnail = stream.thumbnail_url.replace(`{width}x{height}.jpg`, '') + `400x300.jpg`;
     const embed = new Discord.MessageEmbed()
+    .setColor('#0099ff')
     .setTitle(stream.user_name + ' is live!' )
     .setDescription(stream.title)
     .setThumbnail(user.profile_image_url)
@@ -13,7 +14,7 @@ const embedTwitchLive = (streamInfo, userInfos) => {
     .setURL(`https://www.twitch.tv/${stream.user_login}`)
     .addFields(
         { name: 'Game', value: stream.game_name, inline: true },
-		{ name: 'Viewers', value: stream.viewer_count, inline: true },
+		{ name: 'Current viewers', value: stream.viewer_count, inline: true },
     )
     return embed;
 };
