@@ -2,6 +2,12 @@
 
 Cleaner version of an existing repository (archived).
 
+## Twitch streamer search
+
+The user can request a twitch streamer to get their live status with `!twitch <username>`.
+
+WIP: the user can request the bot to watch for live statuses of a list of specific streamers. Once their live status changes, the bot will notify in the correct channel.
+
 ## Tenor GIF Search
 
 The user can request the bot for either a random gif search or a specific gif search.
