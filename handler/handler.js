@@ -22,7 +22,7 @@ const leagueHandler = async (msg, ...params) => {
         case 'summoner':
             const region = params[1].toLowerCase();
             if (!regions.includes(region)){
-                await msg.channel.send('Are you sure you typed in the wrong region?');
+                await msg.channel.send('Are you sure you typed in the right region?');
                 return;
             }
             const summonerName = encodeURI(params.slice(2).join(" "));
@@ -35,7 +35,35 @@ const leagueHandler = async (msg, ...params) => {
                 await msg.channel.send(Riot.embedSummonerRankedDetails(summoner));
                 return;
             }
-
+        case 'me':
+            const registeredResponse = Riot.isRegisteredMember(msg.author.id);
+            if (registeredResponse) {
+                const region = registeredResponse.region;
+                const summonerName = encodeURI(registeredResponse.name);
+                const summoner = await Riot.ranked(region, summonerName);
+                if (!summoner) {
+                    await msg.channel.send("Summoner not found");
+                    return;
+                } else {
+                    await msg.channel.send(Riot.embedSummonerRankedDetails(summoner));
+                    return;
+                }
+            } else {
+                await msg.reply('You are not registered yet.');
+            }
+            break;
+        case 'register':
+            const registerRegion = params[1].toLowerCase();
+            if (!registerRegion) {
+                await msg.channel.send('Are you sure you typed in the right region?');
+                return;
+            }
+            const registerSummonerName = params.slice(2).join(" ");
+            await msg.channel.send(Riot.registerMember(msg.author.id, registerRegion, registerSummonerName));
+            return;
+        case 'delete':
+            await msg.channel.send(Riot.deleteMember(msg.author.id));
+            break;
         default:
             await msg.channel.send('Wrong command, check your typo!');
             break; 

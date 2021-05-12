@@ -26,6 +26,15 @@ Command: `!league summoner <region> <summoner name>`
 
 The bot will then send an embed message with the SOLO Q and FLEX Q ranked tiers with the number of wins and losses.
 
+### Simplify your own summoner lookup requests
+
+The user can register to be on a (local) list with his own summoner name. By doing so, he can use `!league me` command to fetch his own summoner infos.
+
+To register: `!league register <region> <summoner name>`
+To delete: `!league delete`
+
+IMPORTANT: A file named `users.json` must be created at the project's root, initialized with an empty array `[]`.
+
 ## Cat facts and pictures
 
 Upon request, a random cat fact (fetched from a list of 5 daily facts) or a random cat picture will be sent back by the bot.

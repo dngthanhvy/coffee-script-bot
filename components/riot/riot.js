@@ -1,7 +1,7 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
-
+import fs from 'fs';
 import { formatSummonerRankedDetails, embedSummonerRankedDetails } from './utils.js'
 
 //TODO: Error handling
@@ -85,10 +85,64 @@ const ranked = async(region, summonerName) => {
 
 };
 
+const isRegisteredMember = (discordUserId) => {
+
+    const registeredList = JSON.parse(fs.readFileSync('users.json'));
+
+    for (let member of registeredList) {
+        if (member.discordID === discordUserId) {
+            member.isRegistered = true;
+            return member;
+        }
+    }
+    return null;
+
+}
+
+const registerMember = (discordUserId, region, summonerName) => {
+    
+    const newUser = {
+        name: summonerName,
+        region: region, 
+        discordID: discordUserId
+    };
+
+    const isRegistered = isRegisteredMember(discordUserId);
+    if (isRegistered) {
+        return "You're already registered. Delete your own data first before changing your summoner name with !league delete.";
+    } else {
+        const registeredList = JSON.parse(fs.readFileSync('users.json'));
+        const newList = [
+            ...registeredList,
+            newUser
+        ];
+        fs.writeFileSync('users.json', JSON.stringify(newList))
+        return "You're now registered!";
+    }
+}
+
+const deleteMember = (discordUserId) => {
+
+    const isRegistered = isRegisteredMember(discordUserId);
+    if (isRegistered) {
+        const registeredList = JSON.parse(fs.readFileSync('users.json'));
+        const newList = registeredList.filter(member => member.discordID !== discordUserId);
+        fs.writeFileSync('users.json', JSON.stringify(newList))
+        return "Ok! You're no longer in the VIP list.";    
+    } else {
+        return "You can't delete your data because you're not registered yet.";
+
+
+    }
+}
+
 
 
 export default {
     summoner,
     ranked,
+    isRegisteredMember,
+    registerMember,
+    deleteMember,
     embedSummonerRankedDetails
 }

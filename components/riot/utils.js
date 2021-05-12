@@ -25,7 +25,7 @@ const embedSummonerRankedDetails = (summonerObject) => {
 
     const thumbnailURL = `http://ddragon.leagueoflegends.com/cdn/11.10.1/img/profileicon/${user.profileIcon}.png`;
 
-    const opGGURL = `https://${user.region.toLowerCase()}.op.gg/summoner/userName=${user.name}`
+    const opGGURL = `https://${user.region.toLowerCase()}.op.gg/summoner/userName=${encodeURI(user.name)}`
 
     const embed = new Discord.MessageEmbed()
     .setTitle(user.name)
