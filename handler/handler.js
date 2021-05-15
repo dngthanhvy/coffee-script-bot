@@ -7,6 +7,12 @@ const sayHello = async (msg, params) => {
 
 const waffles = async (msg, params) => {
     await msg.channel.send('You should order some waffles at https://deliveroo.fr/fr/menu/strasbourg/centre-cathedrale/waffle-factory-strasbourg-arcades-gaufre')
+};
+
+const ntm = async (msg, params) => {
+    const barroso = '336254157629685763';
+    const hamada = '344253529835438090';
+    await msg.channel.send(`NTM <@${barroso}> et <@${hamada}>`)
 }
 
 const leagueHandler = async (msg, ...params) => {
@@ -167,7 +173,8 @@ const commandList = [
     ['twitch', twitchHandler],
     ['help', helpHandler],
     ['quote', quoteHandler],
-    ['waffles', waffles]
+    ['waffles', waffles],
+    ['ntm', ntm]
 ];
 
 const commandHandler = async (msg) => {
