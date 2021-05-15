@@ -73,19 +73,36 @@ const leagueHandler = async (msg, ...params) => {
 };
 
 const gifHandler = async (msg, ...params) => {
-    if (![...params])
+    if (params.length === 0){
         await msg.channel.send(await Tenor.randomGifSearch());
+    }
     else
         await msg.channel.send(await Tenor.gifSearch(encodeURI(params.join(' '))));
 };
 
 
 const catHandler = async (msg, ...params) => {
-    const cat = params[0].toLowerCase();
-    if (cat === 'fact') {
-        await msg.channel.send(await Cat.getCatFact());
-    } else if (cat === 'pic') {
-        await msg.channel.send(await Cat.getRandomCatPic());
+    if (params.length === 0) {
+        const allCat = await Promise.all([
+            Cat.getCatFact(),
+            Cat.getRandomCatPic()
+        ]);
+        await msg.channel.send(allCat[0]);
+        await msg.channel.send(allCat[1]);
+        return;
+    }
+    else {
+        switch(params[0].toLowerCase()) {
+            case 'pic':
+                await msg.channel.send(await Cat.getRandomCatPic());
+                return;
+            case 'fact':
+                await msg.channel.send(await Cat.getRandomCatFact());
+                return;
+            default:
+                await msg.channel.send('Wrong command! Pls check again');
+                return;
+        }
     }
 };
 

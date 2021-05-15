@@ -12,7 +12,7 @@ const randomGifSearch = async(searchTerm) => {
         let randomURL = `https://g.tenor.com/v1/trending?key=${api_key}&limit=${limit}`;
         const randomGif = await axios.get(randomURL);
 
-        if (randomGif.data.results !== []) {
+        if (randomGif.data.results.length > 0) {
             return getRandomIndex(formatResultToArray(randomGif.data.results));
         } else {
             return 'Cannot find what you were looking for, maybe enter a valid search query?';
