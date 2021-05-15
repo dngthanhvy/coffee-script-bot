@@ -10,9 +10,8 @@ const waffles = async (msg, params) => {
 };
 
 const ntm = async (msg, params) => {
-    const barroso = '336254157629685763';
-    const hamada = '344253529835438090';
-    await msg.channel.send(`NTM <@${barroso}> et <@${hamada}>`)
+    const vyCetteBouffone = '99471480139563008';
+    await msg.channel.send(`NTM <@${vyCetteBouffone}>`);
 }
 
 const leagueHandler = async (msg, ...params) => {
