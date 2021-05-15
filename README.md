@@ -40,3 +40,9 @@ IMPORTANT: A file named `users.json` must be created at the project's root, init
 Upon request, a random cat fact (fetched from a list of 5 daily facts) or a random cat picture will be sent back by the bot.
 
 Command: `!cat fact` or `!cat pic`
+
+## Quotes
+
+The user can request a random quote with `!quote`
+
+To be implemented: search by author

@@ -1,4 +1,4 @@
-import {Riot, Tenor, Cat, Twitch} from '../components/components.js';
+import {Riot, Tenor, Cat, Twitch, Quotes} from '../components/components.js';
 import { formatJSON, markdownJSON } from './utils.js';
 
 const sayHello = async (msg, params) => {
@@ -125,13 +125,20 @@ const help = async (msg, ...params) => {
     await msg.channel.send(markdownJSON(res))
 }
 
+const quoteHandler = async(msg, ...params) => {
+    if (params.length === 0) {
+        await msg.channel.send(await Quotes.getRandomQuote())
+    }
+}
+
 const commandList = [
     ['hello', sayHello],
     ['gif', gifHandler],
     ['league', leagueHandler],
     ['cat', catHandler],
     ['twitch', twitchHandler],
-    ['help', help]
+    ['help', help],
+    ['quote', quoteHandler]
 ];
 
 const commandHandler = async (msg) => {
