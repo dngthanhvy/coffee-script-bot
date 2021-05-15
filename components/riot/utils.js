@@ -28,6 +28,7 @@ const embedSummonerRankedDetails = (summonerObject) => {
     const opGGURL = `https://${user.region.toLowerCase()}.op.gg/summoner/userName=${encodeURI(user.name)}`
 
     const embed = new Discord.MessageEmbed()
+    .setColor('#DC291E')
     .setTitle(user.name)
     .setThumbnail(thumbnailURL)
     .setURL(opGGURL)

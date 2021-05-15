@@ -26,6 +26,9 @@ const leagueHandler = async (msg, ...params) => {
                 return;
             }
             const summonerName = encodeURI(params.slice(2).join(" "));
+            if(!summonerName) {
+                await msg.channel.send('Il est où le summoner name pd');
+            }
 
             const summoner = await Riot.ranked(region, summonerName);
             if (!summoner) {
@@ -49,7 +52,7 @@ const leagueHandler = async (msg, ...params) => {
                     return;
                 }
             } else {
-                await msg.reply('You are not registered yet.');
+                await msg.reply('You are not registered yet. Please register with !league register <region> <summoner name>');
             }
             break;
         case 'register':
@@ -117,7 +120,8 @@ const help = async (msg, ...params) => {
         ['cat <option>', 'random cat pic (option = pic) or fact (option = fact)'],
         ['gif <(optional) search queries>', 'random gif or search gif on TENOR'],
         ['league summoner <region> <user>', 'infos on a specific summoner'],
-        ['twitch <user>', 'fetch the live status of a channel']
+        ['twitch <user>', 'fetch the live status of a channel'],
+        ['quote', 'random quote from a famous person']
     ];
 
     let res = "";

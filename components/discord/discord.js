@@ -16,8 +16,9 @@ const onEvent = (client) => {
     client.on("message", (msg) => {
         if(msg.author.bot)
             return
-
-        Handler(msg).catch(e => console.log(e.message));
+        
+        if (msg.channel.id === process.env.DISCORD_BOT_CHANNEL)
+            Handler(msg).catch(e => console.log(e.message));
     });
 }
 

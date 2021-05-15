@@ -109,7 +109,7 @@ const registerMember = (discordUserId, region, summonerName) => {
 
     const isRegistered = isRegisteredMember(discordUserId);
     if (isRegistered) {
-        return "You're already registered. Delete your own data first before changing your summoner name with !league delete.";
+        return "You're already registered. Delete your own data first before changing your summoner name with **!league delete**.";
     } else {
         const registeredList = JSON.parse(fs.readFileSync('users.json'));
         const newList = [
@@ -117,7 +117,7 @@ const registerMember = (discordUserId, region, summonerName) => {
             newUser
         ];
         fs.writeFileSync('users.json', JSON.stringify(newList))
-        return "You're now registered!";
+        return "You're now registered! Use **!league me** now to fetch the registered summoner.";
     }
 }
 
