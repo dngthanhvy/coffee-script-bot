@@ -81,7 +81,10 @@ const league = () => {
     .setAuthor('!league command')
     .setDescription("League of Legends game informations. Regions currently supported: EUW and NA")
     .addFields(
-        {name: '!league summoner [region] [summoner name]', value: 'Informations of a specific summoner.'});
+        {name: '!league summoner [region] [summoner name]', value: 'Informations of a specific summoner.'},
+        {name: '!league register [region] [summoner name]', value: 'Register a summoner name linked to your discord ID on the database. See !league me'},
+        {name: '!league me', value: 'Informations of the summoner linked to your discord ID.'},
+        {name: '!league delete', value: 'Delete your discord ID from the database.'});
     
     return leagueEmbed;
 };

@@ -6,7 +6,7 @@ const sayHello = async (msg, params) => {
 };
 
 const waffles = async (msg, params) => {
-    await msg.channel.send('You should order some waffles at https://commandes.wafflefactory.com/home')
+    await msg.channel.send('You should order some waffles at https://deliveroo.fr/fr/menu/strasbourg/centre-cathedrale/waffle-factory-strasbourg-arcades-gaufre')
 }
 
 const leagueHandler = async (msg, ...params) => {
