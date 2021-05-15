@@ -1,9 +1,13 @@
-import {Riot, Tenor, Cat, Twitch, Quotes} from '../components/components.js';
+import {Riot, Tenor, Cat, Twitch, Quotes, Help} from '../components/components.js';
 import { formatJSON, markdownJSON } from './utils.js';
 
 const sayHello = async (msg, params) => {
     await msg.reply('Hello!');
 };
+
+const waffles = async (msg, params) => {
+    await msg.channel.send('You should order some waffles at https://commandes.wafflefactory.com/home')
+}
 
 const leagueHandler = async (msg, ...params) => {
 
@@ -110,24 +114,44 @@ const catHandler = async (msg, ...params) => {
 };
 
 const twitchHandler = async (msg, ...params) => {
+    if (params.length === 0) {
+        await msg.channel.send('Please enter a username');
+        return;
+    }
     const twitchUser = params[0].toLowerCase();
     await msg.channel.send(await Twitch.embedStreamInformation(twitchUser))
 };
 
-const help = async (msg, ...params) => {
-    const commandList = [
-        ['help', 'list all commands'],
-        ['cat <option>', 'random cat pic (option = pic) or fact (option = fact)'],
-        ['gif <(optional) search queries>', 'random gif or search gif on TENOR'],
-        ['league summoner <region> <user>', 'infos on a specific summoner'],
-        ['twitch <user>', 'fetch the live status of a channel'],
-        ['quote', 'random quote from a famous person']
-    ];
-
-    let res = "";
-    commandList.forEach(command => res += `!${command[0]}: ${command[1]}` + '\n');
-    await msg.channel.send(markdownJSON(res))
-}
+const helpHandler = async (msg, ...params) => {
+    if (params.length === 0) {
+        await msg.channel.send(Help.generalHelp());
+    } else {
+        const command = params[0].toLowerCase();
+        switch (command) {
+            case 'help':
+                await msg.channel.send(Help.help());
+                return;
+            case 'quote':
+                await msg.channel.send(Help.quote());
+                return;
+            case 'cat':
+                await msg.channel.send(Help.cat());
+                return;
+            case 'gif':
+                await msg.channel.send(Help.gif());
+                return;
+            case 'twitch':
+                await msg.channel.send(Help.twitch());
+                return;
+            case 'league':
+                await msg.channel.send(Help.league());
+                return;
+            default:
+                await msg.channel.send('Invalid command.');
+                return;
+        }
+    }
+};
 
 const quoteHandler = async(msg, ...params) => {
     if (params.length === 0) {
@@ -141,8 +165,9 @@ const commandList = [
     ['league', leagueHandler],
     ['cat', catHandler],
     ['twitch', twitchHandler],
-    ['help', help],
-    ['quote', quoteHandler]
+    ['help', helpHandler],
+    ['quote', quoteHandler],
+    ['waffles', waffles]
 ];
 
 const commandHandler = async (msg) => {

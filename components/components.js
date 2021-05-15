@@ -4,6 +4,7 @@ import Tenor from './tenor/tenor.js'
 import Cat from './cat/index.js'
 import Twitch from './twitch/twitch.js'
 import Quotes from './quotes/quotes.js'
+import Help from './help/help.js'
 
 export {
     Discord,
@@ -11,5 +12,6 @@ export {
     Tenor,
     Cat,
     Twitch,
-    Quotes
+    Quotes,
+    Help
 }
